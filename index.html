@@ -3,85 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中医学习笔记 · 骨架</title>
+    <title>芬芳时 · 中医日课</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* 极简样式，只为了看清结构 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            font-family: system-ui, sans-serif;
-            line-height: 1.6;
-            background: #faf9f7;
-            color: #2c3e2f;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        /* 导航 */
-        .nav {
-            background: #556b2f;
-            padding: 15px;
-            border-radius: 40px;
-            margin-bottom: 40px;
+            background: #f5f3f0;
+            font-family: system-ui, "PingFang SC", sans-serif;
             display: flex;
             justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-        }
-        /* 每个版块 */
-        .section {
-            margin-bottom: 60px;
-            padding-top: 20px;
-        }
-        .section-title {
-            font-size: 1.8em;
-            color: #556b2f;
-            border-left: 6px solid #ce93d8;
-            padding-left: 20px;
-            margin-bottom: 25px;
-        }
-        /* 卡片区（放具体内容） */
-        .card-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
         .card {
+            max-width: 600px;
+            width: 100%;
             background: white;
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #eae6df;
+            border-radius: 32px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid #e0d9cc;
         }
-        .card-title {
-            font-size: 1.3em;
-            color: #2c3e2f;
-            margin-bottom: 15px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #556b2f;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .logo {
             font-weight: 600;
+            color: #556b2f;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        /* 尝药打卡的特殊卡片（移植自花精页面） */
-        .checkin-card {
-            background: #fffef9;
-            border: 1px solid #d9d0b5;
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+        .logo span {
+            font-size: 1.4em;
         }
-        .checkin-row {
-            margin-bottom: 20px;
+        .date {
+            color: #888;
+            font-size: 0.9em;
+            font-family: monospace;
         }
-        .checkin-label {
+        .title {
+            text-align: center;
+            font-size: 1.6em;
+            color: #2c3e2f;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        .row {
+            margin-bottom: 25px;
+        }
+        .label {
             font-size: 0.9em;
             color: #556b2f;
             font-weight: 600;
@@ -90,147 +73,116 @@
             margin-bottom: 6px;
             display: block;
         }
-        .checkin-input {
+        .input {
             border-bottom: 1px dashed #ccc;
-            min-height: 2em;
-            padding: 4px 0;
+            min-height: 2.2em;
+            padding: 6px 0;
             color: #333;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
-        .placeholder-note {
+        .input:focus {
+            outline: none;
+            border-bottom-color: #ce93d8;
+        }
+        .input[contenteditable="true"]:empty:before {
+            content: attr(placeholder);
             color: #aaa;
             font-style: italic;
-            margin: 30px 0 10px;
-            text-align: center;
-            border-top: 1px dashed #ddd;
-            padding-top: 30px;
         }
-        footer {
+        .btn {
+            background: #ffab91;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2em;
+            border-radius: 40px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 30px 0 20px;
+            box-shadow: 0 6px 0 #d68c72;
+            transition: 0.1s ease;
+            cursor: pointer;
+        }
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #d68c72;
+        }
+        .footer {
             text-align: center;
-            color: #888;
-            margin-top: 60px;
-            padding: 30px 0;
-            border-top: 1px solid #eee;
+            color: #aaa;
+            font-size: 0.8em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="card" id="captureCard">
+        <div class="header">
+            <div class="logo">
+                <span>🌸</span> 芬芳时 · 中医日课
+            </div>
+            <div class="date" id="todayDate"></div>
+        </div>
+        <div class="title">📓 今日 · 尝药 / 刮痧 / 随手</div>
 
-        <!-- 导航（点击跳转到对应板块） -->
-        <div class="nav">
-            <a href="#linzheng">📖 临证脉络</a>
-            <a href="#bencao">🌿 本草方药</a>
-            <a href="#waizhi">✋ 外治法</a>
-            <a href="#changyao">🧪 尝药打卡</a>
+        <div class="row">
+            <span class="label">📌 标题 / 药名</span>
+            <div class="input" contenteditable="true" placeholder="例：桂枝 / 刮痧 / 艾灸"></div>
         </div>
 
-        <!-- 板块1：临证脉络 -->
-        <section id="linzheng" class="section">
-            <h2 class="section-title">📖 临证脉络</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-title">六经辨证 · 笔记</div>
-                    <p>太阳病：脉浮，头项强痛而恶寒……</p>
-                    <p style="color: #aaa;">（这里放你的学习笔记）</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">气血水 · 思路</div>
-                    <p>气、血、水的通路与阻滞……</p>
-                    <p style="color: #aaa;">（你可以慢慢填内容）</p>
-                </div>
-            </div>
-        </section>
+        <div class="row">
+            <span class="label">⚖️ 四气五味 / 部位</span>
+            <div class="input" contenteditable="true" placeholder="温、辛、甘…… / 后背、小腿……"></div>
+        </div>
 
-        <!-- 板块2：本草方药 -->
-        <section id="bencao" class="section">
-            <h2 class="section-title">🌿 本草方药</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-title">药性备录</div>
-                    <p>桂枝：温通，入心、肺、膀胱……</p>
-                    <p>白芍：柔肝，养阴，缓急……</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">方剂笔记</div>
-                    <p>桂枝汤、小柴胡汤、四逆汤……</p>
-                </div>
-            </div>
-        </section>
+        <div class="row">
+            <span class="label">🌀 药势 / 反应</span>
+            <div class="input" contenteditable="true" placeholder="气往哪走？身体什么感觉？"></div>
+        </div>
 
-        <!-- 板块3：外治法 -->
-        <section id="waizhi" class="section">
-            <h2 class="section-title">✋ 外治法</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-title">刮痧 · 记录</div>
-                    <p>出痧情况、部位、反应……</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">针灸 · 穴位</div>
-                    <p>常用穴位、针感、灸感……</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">按摩 · 手法</div>
-                    <p>按揉、点按、经络推拿……</p>
-                </div>
-            </div>
-        </section>
+        <div class="row">
+            <span class="label">📝 备注 / 感受</span>
+            <div class="input" contenteditable="true" placeholder="想写的都写在这儿"></div>
+        </div>
 
-        <!-- 板块4：尝药打卡（移植自花精卡片） -->
-        <section id="changyao" class="section">
-            <h2 class="section-title">🧪 尝药打卡</h2>
-            <div class="checkin-card">
-                <!-- 日期（自动生成） -->
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #556b2f; padding-bottom: 12px; margin-bottom: 25px;">
-                    <span style="font-weight: bold; color: #556b2f;">🌿 尝药手记</span>
-                    <span style="color: #999; font-size: 0.9em;" id="todayDate"></span>
-                </div>
-
-                <!-- 四气五味 -->
-                <div class="checkin-row">
-                    <span class="checkin-label">四气五味</span>
-                    <div class="checkin-input" contenteditable="true" style="border-bottom: 1px dashed #ccc; min-height: 1.5em;"></div>
-                </div>
-
-                <!-- 药势 -->
-                <div class="checkin-row">
-                    <span class="checkin-label">药势</span>
-                    <div class="checkin-input" contenteditable="true" style="border-bottom: 1px dashed #ccc; min-height: 1.5em;"></div>
-                </div>
-
-                <!-- 三焦图（这里可以用简图或文字描述） -->
-                <div class="checkin-row">
-                    <span class="checkin-label">三焦图</span>
-                    <div class="checkin-input" contenteditable="true" style="border-bottom: 1px dashed #ccc; min-height: 1.5em;"></div>
-                </div>
-
-                <!-- 备注/感受 -->
-                <div class="checkin-row">
-                    <span class="checkin-label">感受 · 反应</span>
-                    <div class="checkin-input" contenteditable="true" style="border-bottom: 1px dashed #ccc; min-height: 3em;"></div>
-                </div>
-
-                <!-- 占位提示 -->
-                <div style="color: #aaa; font-size: 0.85em; margin-top: 20px; text-align: right;">
-                    点击虚线处填写 · 后续可加保存按钮
-                </div>
-            </div>
-
-            <!-- 提醒：这里是空架子，等你填 -->
-            <div class="placeholder-note">
-                ⚬ 每个卡片都可以复制、增删 ⚬<br>
-                四气五味｜药势｜三焦图 —— 你说了算
-            </div>
-        </section>
-
-        <footer>
-            🌱 中医学习笔记 · 慢慢来
-        </footer>
+        <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
+        <div class="footer">每天一张 · 存进相册 · 就是你的笔记</div>
     </div>
 
     <script>
-        // 自动填写今天的日期
         document.getElementById('todayDate').innerText = new Date().toISOString().slice(0,10).replace(/-/g,'.');
+
+        function saveCard() {
+            const card = document.getElementById('captureCard');
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = '⏳ 生成中...';
+            btn.disabled = true;
+
+            html2canvas(card, {
+                scale: 2,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const imgWindow = window.open('');
+                imgWindow.document.write(`
+                    <html>
+                        <head><title>长按保存图片 · 芬芳时</title></head>
+                        <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
+                            <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
+                            <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
+                        </body>
+                    </html>
+                `);
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }).catch(err => {
+                alert('生成失败，试试截图吧');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
+        }
     </script>
 </body>
 </html>
