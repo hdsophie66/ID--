@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>芬芳时 · 中医日课</title>
+    <title>🌿 芬芳时 · 尝药周报</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
@@ -35,7 +35,7 @@
             align-items: center;
             border-bottom: 2px solid #556b2f;
             padding-bottom: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .logo {
             font-weight: 600;
@@ -55,14 +55,22 @@
         }
         .title {
             text-align: center;
-            font-size: 1.6em;
+            font-size: 1.5em;
             color: #2c3e2f;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-weight: 400;
-            letter-spacing: 2px;
+        }
+
+        /* 第一层：尝药核心 */
+        .section-core {
+            background: #faf8f5;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #e2d9cc;
         }
         .row {
-            margin-bottom: 25px;
+            margin-bottom: 18px;
         }
         .label {
             font-size: 0.9em;
@@ -70,27 +78,68 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             display: block;
         }
         .input {
-            border-bottom: 1px dashed #ccc;
-            min-height: 2.2em;
-            padding: 6px 0;
+            border-bottom: 1px dashed #bbb;
+            min-height: 1.8em;
+            padding: 5px 0;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
             white-space: pre-wrap;
             word-wrap: break-word;
-        }
-        .input:focus {
-            outline: none;
-            border-bottom-color: #ce93d8;
         }
         .input[contenteditable="true"]:empty:before {
             content: attr(placeholder);
             color: #aaa;
             font-style: italic;
         }
+
+        /* 折叠区按钮 */
+        .toggle-btn {
+            background: none;
+            border: 1px solid #ccc;
+            color: #556b2f;
+            padding: 10px;
+            width: 100%;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 15px 0 10px;
+            transition: 0.2s;
+        }
+        .toggle-btn:hover {
+            background: #f0ebe4;
+        }
+
+        /* 第二层：生活觉察（默认隐藏） */
+        .section-life {
+            background: #fffef9;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px dashed #ce93d8;
+            display: none;  /* 初始隐藏 */
+            margin-top: 15px;
+        }
+        .section-life.show {
+            display: block;
+        }
+        .life-row {
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+        .life-label {
+            color: #7b5e4b;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        .life-input {
+            border-bottom: 1px dotted #ccc;
+            min-height: 1.6em;
+            padding: 4px 0;
+        }
+
         .btn {
             background: #ffab91;
             color: white;
@@ -119,41 +168,119 @@
 </head>
 <body>
     <div class="card" id="captureCard">
+        <!-- 头部：用户名 + 日期 -->
         <div class="header">
             <div class="logo">
-                <span>🌸</span> 芬芳时 · 中医日课
+                <span>🌿</span> 芬芳时 · 尝药周报
             </div>
             <div class="date" id="todayDate"></div>
         </div>
-        <div class="title">📓 今日 · 尝药 / 刮痧 / 随手</div>
 
-        <div class="row">
-            <span class="label">📌 标题 / 药名</span>
-            <div class="input" contenteditable="true" placeholder="例：桂枝 / 刮痧 / 艾灸"></div>
+        <!-- 第一层：尝药核心（必填） -->
+        <div class="section-core">
+            <div class="row">
+                <span class="label">👤 用户名</span>
+                <div class="input" contenteditable="true" placeholder="你的名字"></div>
+            </div>
+            <div class="row">
+                <span class="label">🌱 药名 / 方剂</span>
+                <div class="input" contenteditable="true" placeholder="如：桂枝汤"></div>
+            </div>
+            <div class="row">
+                <span class="label">⚖️ 四气五味 / 升降浮沉</span>
+                <div class="input" contenteditable="true" placeholder="温、辛、甘……"></div>
+            </div>
+            <div class="row">
+                <span class="label">🌀 药势 / 三焦图</span>
+                <div class="input" contenteditable="true" placeholder="可写文字描述，或后续插入图片"></div>
+            </div>
+            <div class="row">
+                <span class="label">📌 用药反应</span>
+                <div class="input" contenteditable="true" placeholder="服药后身体的感觉"></div>
+            </div>
+            <div class="row">
+                <span class="label">🕒 当下状态</span>
+                <div class="input" contenteditable="true" placeholder="今天整体的感受"></div>
+            </div>
+            <div class="row">
+                <span class="label">📅 之前状态</span>
+                <div class="input" contenteditable="true" placeholder="服药前的状态"></div>
+            </div>
         </div>
 
-        <div class="row">
-            <span class="label">⚖️ 四气五味 / 部位</span>
-            <div class="input" contenteditable="true" placeholder="温、辛、甘…… / 后背、小腿……"></div>
-        </div>
+        <!-- 折叠按钮 -->
+        <button class="toggle-btn" onclick="toggleLifeSection()">📋 + 展开生活觉察（可填）</button>
 
-        <div class="row">
-            <span class="label">🌀 药势 / 反应</span>
-            <div class="input" contenteditable="true" placeholder="气往哪走？身体什么感觉？"></div>
-        </div>
-
-        <div class="row">
-            <span class="label">📝 备注 / 感受</span>
-            <div class="input" contenteditable="true" placeholder="想写的都写在这儿"></div>
+        <!-- 第二层：生活觉察（默认隐藏） -->
+        <div class="section-life" id="lifeSection">
+            <div class="life-row">
+                <div class="life-label">🍚 日常饮食</div>
+                <div class="life-input" contenteditable="true" placeholder="今天吃了什么"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">🚽 二便情况</div>
+                <div class="life-input" contenteditable="true" placeholder="大小便"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">😴 睡眠情况</div>
+                <div class="life-input" contenteditable="true" placeholder="入睡、中间、醒来"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">🏃 运动情况</div>
+                <div class="life-input" contenteditable="true" placeholder="今天动了没"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">⏰ 易疲惫时间</div>
+                <div class="life-input" contenteditable="true" placeholder="什么时段觉得累"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">✨ 轻快感时间</div>
+                <div class="life-input" contenteditable="true" placeholder="什么时段比较有精神"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">📺 影视/书籍/文章心得</div>
+                <div class="life-input" contenteditable="true" placeholder="最近在看什么"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">📓 日记/手帐/兴趣</div>
+                <div class="life-input" contenteditable="true" placeholder="想发展什么爱好"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">💬 一句话形容自己</div>
+                <div class="life-input" contenteditable="true" placeholder="你会怎么描述现在的你"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">🌟 最不可复制的是什么</div>
+                <div class="life-input" contenteditable="true" placeholder="你身上最独特的东西"></div>
+            </div>
+            <div class="life-row">
+                <div class="life-label">🌄 有能力时想做什么</div>
+                <div class="life-input" contenteditable="true" placeholder="如果有更多能量，你想做什么"></div>
+            </div>
         </div>
 
         <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
-        <div class="footer">每天一张 · 存进相册 · 就是你的笔记</div>
+        <div class="footer">每天一张 · 存进相册 · 就是你的药证笔记</div>
     </div>
 
     <script>
+        // 显示今天日期
         document.getElementById('todayDate').innerText = new Date().toISOString().slice(0,10).replace(/-/g,'.');
 
+        // 折叠/展开生活觉察区
+        function toggleLifeSection() {
+            const section = document.getElementById('lifeSection');
+            const btn = document.querySelector('.toggle-btn');
+            if (section.classList.contains('show')) {
+                section.classList.remove('show');
+                btn.innerText = '📋 + 展开生活觉察（可填）';
+            } else {
+                section.classList.add('show');
+                btn.innerText = '📋 - 收起生活觉察';
+            }
+        }
+
+        // 保存卡片（和之前一样）
         function saveCard() {
             const card = document.getElementById('captureCard');
             const btn = event.target;
