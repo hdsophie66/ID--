@@ -341,35 +341,39 @@
         }
 
         // 保存卡片
-        function saveCard() {
-            const card = document.getElementById('captureCard');
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = '⏳ 生成中...';
-            btn.disabled = true;
+function saveCard() {
+    const card = document.getElementById('captureCard');
+    const btn = event.target;
+    const originalText = btn.innerText;
 
-            html2canvas(card, {
-                scale: 2,
-                backgroundColor: '#ffffff'
-            }).then(canvas => {
-                const imgWindow = window.open('');
-                imgWindow.document.write(`
-                    <html>
-                        <head><title>长按保存图片 · 芬芳时</title></head>
-                        <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
-                            <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
-                            <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
-                        </body>
-                    </html>
-                `);
-                btn.innerText = originalText;
-                btn.disabled = false;
-            }).catch(err => {
-                alert('生成失败，试试截图吧');
-                btn.innerText = originalText;
-                btn.disabled = false;
-            });
-        }
+    // 按钮变成“生成中”
+    btn.innerText = '⏳ 生成中...';
+    btn.disabled = true;
+
+    html2canvas(card, {
+        scale: 2,
+        backgroundColor: '#ffffff'
+    }).then(canvas => {
+        // 图片生成成功，在新窗口打开
+        const imgWindow = window.open('');
+        imgWindow.document.write(`
+            <html>
+                <head><title>长按保存图片 · 芬芳时</title></head>
+                <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
+                    <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
+                    <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
+                </body>
+            </html>
+        `);
+    }).catch(err => {
+        console.error(err);
+        alert('生成失败，请重试');
+    }).finally(() => {
+        // 不管成功还是失败，都把按钮恢复原样
+        btn.innerText = originalText;
+        btn.disabled = false;
+    });
+}
     </script>
 </body>
 </html>
