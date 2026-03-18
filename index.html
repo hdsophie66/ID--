@@ -60,8 +60,6 @@
             margin-bottom: 25px;
             font-weight: 400;
         }
-
-        /* 第一层：尝药核心 */
         .section-core {
             background: #faf8f5;
             border-radius: 20px;
@@ -90,13 +88,11 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-        /* 提示文字（placeholder）的样式 */
         .input[contenteditable="true"]:empty:before {
             content: attr(placeholder);
             color: #aaa;
             font-style: italic;
         }
-        /* 图片插入区域 */
         .image-upload-area {
             margin-top: 10px;
         }
@@ -115,8 +111,6 @@
             margin-top: 10px;
             border-radius: 8px;
         }
-
-        /* 折叠按钮 */
         .toggle-btn {
             background: none;
             border: 1px solid #ccc;
@@ -132,8 +126,6 @@
         .toggle-btn:hover {
             background: #f0ebe4;
         }
-
-        /* 第二层：生活觉察（默认隐藏） */
         .section-life {
             background: #fffef9;
             border-radius: 20px;
@@ -165,7 +157,6 @@
             color: #aaa;
             font-style: italic;
         }
-
         .btn {
             background: #ffab91;
             color: white;
@@ -194,7 +185,6 @@
 </head>
 <body>
     <div class="card" id="captureCard">
-        <!-- 头部：用户名 + 日期 -->
         <div class="header">
             <div class="logo">
                 <span>🌿</span> 芬芳时 · 尝药日志
@@ -202,20 +192,11 @@
             <div class="date" id="todayDate"></div>
         </div>
 
-        <!-- 第一层：尝药核心（必填） -->
+        <!-- 第一层：尝药核心 -->
         <div class="section-core">
-            <div class="row">
-                <span class="label">👤 用户名</span>
-                <div class="input" contenteditable="true" placeholder="你的名字"></div>
-            </div>
-            <div class="row">
-                <span class="label">🌱 药名 / 方剂</span>
-                <div class="input" contenteditable="true" placeholder="如：桂枝汤"></div>
-            </div>
-            <div class="row">
-                <span class="label">⚖️ 四气五味 / 升降浮沉</span>
-                <div class="input" contenteditable="true" placeholder="温、辛、甘……"></div>
-            </div>
+            <div class="row"><span class="label">👤 用户名</span><div class="input" contenteditable="true" placeholder="你的名字"></div></div>
+            <div class="row"><span class="label">🌱 药名 / 方剂</span><div class="input" contenteditable="true" placeholder="如：桂枝汤"></div></div>
+            <div class="row"><span class="label">⚖️ 四气五味 / 升降浮沉</span><div class="input" contenteditable="true" placeholder="温、辛、甘……"></div></div>
             <div class="row">
                 <span class="label">🌀 药势 / 三焦图</span>
                 <div class="input" contenteditable="true" placeholder="可写文字描述"></div>
@@ -224,14 +205,8 @@
                     <div class="image-preview"></div>
                 </div>
             </div>
-            <div class="row">
-                <span class="label">📌 用药反应</span>
-                <div class="input" contenteditable="true" placeholder="服药后身体的感觉"></div>
-            </div>
-            <div class="row">
-                <span class="label">🕒 当下状态</span>
-                <div class="input" contenteditable="true" placeholder="今天整体的感受"></div>
-            </div>
+            <div class="row"><span class="label">📌 用药反应</span><div class="input" contenteditable="true" placeholder="服药后身体的感觉"></div></div>
+            <div class="row"><span class="label">🕒 当下状态</span><div class="input" contenteditable="true" placeholder="今天整体的感受"></div></div>
             <div class="row">
                 <span class="label">👅 舌苔情况</span>
                 <div class="input" contenteditable="true" placeholder="颜色、厚薄、润燥、齿痕等"></div>
@@ -240,45 +215,21 @@
                     <div class="image-preview"></div>
                 </div>
             </div>       
-            <div class="row">
-                <span class="label">📅 之前状态</span>
-                <div class="input" contenteditable="true" placeholder="服药前的状态"></div>
-            </div>
+            <div class="row"><span class="label">📅 之前状态</span><div class="input" contenteditable="true" placeholder="服药前的状态"></div></div>
         </div>
 
         <!-- 折叠按钮 -->
         <button class="toggle-btn" onclick="toggleLifeSection()">📋 + 展开生活觉察（可填）</button>
 
-        <!-- 第二层：生活觉察（默认隐藏） -->
+        <!-- 第二层：生活觉察 -->
         <div class="section-life" id="lifeSection">
-            <div class="life-row">
-                <div class="life-label">🍚 日常饮食</div>
-                <div class="life-input" contenteditable="true" placeholder="今天吃了什么"></div>
-            </div>
-            <div class="life-row">
-                <div class="life-label">🚽 二便情况</div>
-                <div class="life-input" contenteditable="true" placeholder="大小便"></div>
-            </div>
-            <div class="life-row">
-                <div class="life-label">😴 睡眠情况</div>
-                <div class="life-input" contenteditable="true" placeholder="入睡、中间、醒来"></div>
-            </div>
-            <div class="life-row">
-                <div class="life-label">🏃 运动情况</div>
-                <div class="life-input" contenteditable="true" placeholder="今天动了没"></div>
-            </div>
-            <div class="life-row">
-                <div class="life-label">⏰ 易疲惫时间</div>
-                <div class="life-input" contenteditable="true" placeholder="什么时段觉得累"></div>
-            </div>
-            <div class="life-row">
-                <div class="life-label">✨ 轻快感时间</div>
-                <div class="life-input" contenteditable="true" placeholder="什么时段比较有精神"></div>
-            </div>
-            <div class="life-row">
-                <div class="life-label">📺 影视/书籍/心得</div>
-                <div class="life-input" contenteditable="true" placeholder="最近在看什么"></div>
-            </div>
+            <div class="life-row"><div class="life-label">🍚 日常饮食</div><div class="life-input" contenteditable="true" placeholder="今天吃了什么"></div></div>
+            <div class="life-row"><div class="life-label">🚽 二便情况</div><div class="life-input" contenteditable="true" placeholder="大小便"></div></div>
+            <div class="life-row"><div class="life-label">😴 睡眠情况</div><div class="life-input" contenteditable="true" placeholder="入睡、中间、醒来"></div></div>
+            <div class="life-row"><div class="life-label">🏃 运动情况</div><div class="life-input" contenteditable="true" placeholder="今天动了没"></div></div>
+            <div class="life-row"><div class="life-label">⏰ 易疲惫时间</div><div class="life-input" contenteditable="true" placeholder="什么时段觉得累"></div></div>
+            <div class="life-row"><div class="life-label">✨ 轻快感时间</div><div class="life-input" contenteditable="true" placeholder="什么时段比较有精神"></div></div>
+            <div class="life-row"><div class="life-label">📺 影视/书籍/心得</div><div class="life-input" contenteditable="true" placeholder="最近在看什么"></div></div>
             <div class="life-row">
                 <div class="life-label">📓 日记/手帐</div>
                 <div class="life-input" contenteditable="true" placeholder="今天想记点什么"></div>
@@ -287,14 +238,8 @@
                     <div class="image-preview"></div>
                 </div>
             </div>
-            <div class="life-row">
-                <div class="life-label">💬 用一句话形容自己，我最不可复制的是什么</div>
-                <div class="life-input" contenteditable="true" placeholder="你会怎么描述现在的你，和你最独特的部分"></div>
-            </div>
-            <div class="life-row">
-                <div class="life-label">🌄 有能力时想做什么</div>
-                <div class="life-input" contenteditable="true" placeholder="如果有更多能量，你想做什么"></div>
-            </div>
+            <div class="life-row"><div class="life-label">💬 用一句话形容自己，我最不可复制的是什么</div><div class="life-input" contenteditable="true" placeholder="你会怎么描述现在的你，和你最独特的部分"></div></div>
+            <div class="life-row"><div class="life-label">🌄 有能力时想做什么</div><div class="life-input" contenteditable="true" placeholder="如果有更多能量，你想做什么"></div></div>
         </div>
 
         <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
@@ -305,7 +250,6 @@
         // 显示今天日期
         document.getElementById('todayDate').innerText = new Date().toISOString().slice(0,10).replace(/-/g,'.');
 
-        // 折叠/展开生活觉察区
         function toggleLifeSection() {
             const section = document.getElementById('lifeSection');
             const btn = document.querySelector('.toggle-btn');
@@ -318,7 +262,6 @@
             }
         }
 
-        // 插入图片功能
         function insertImage(btn) {
             const input = document.createElement('input');
             input.type = 'file';
@@ -330,7 +273,6 @@
                     const img = document.createElement('img');
                     img.src = ev.target.result;
                     img.className = 'preview-image';
-                    // 把图片插入到按钮后面的预览区
                     const previewDiv = btn.parentElement.querySelector('.image-preview');
                     previewDiv.innerHTML = '';
                     previewDiv.appendChild(img);
@@ -340,43 +282,46 @@
             input.click();
         }
 
-        // 保存卡片
-function saveCard() {
-    const card = document.getElementById('captureCard');
-    const btn = event.target;
-    const originalText = btn.innerText;
+        function saveCard() {
+            const card = document.getElementById('captureCard');
+            const btn = event.target;
+            const originalText = btn.innerText;
 
-    btn.innerText = '⏳ 生成中...';
-    btn.disabled = true;
+            btn.innerText = '⏳ 生成中...';
+            btn.disabled = true;
 
-    html2canvas(card, {
-        scale: 2,
-        backgroundColor: '#ffffff'
-    }).then(canvas => {
-        // ✅ 先恢复按钮
-        btn.innerText = originalText;
-        btn.disabled = false;
+            html2canvas(card, {
+                scale: 2,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                // 先恢复按钮
+                btn.innerText = originalText;
+                btn.disabled = false;
 
-        // ✅ 延迟一点点再开新窗口（让按钮恢复先显示）
-        setTimeout(() => {
-            const imgWindow = window.open('');
-            imgWindow.document.write(`
-                <html>
-                    <head><title>长按保存图片 · 芬芳时</title></head>
-                    <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
-                        <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
-                        <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
-                    </body>
-                </html>
-            `);
-        }, 100); // 延迟100毫秒，足够按钮显示“原样”
-    }).catch(err => {
-        console.error(err);
-        alert('生成失败，请重试');
-        btn.innerText = originalText;
-        btn.disabled = false;
-    });
-}
+                // 再开新窗口（稍微延迟一点点，让按钮恢复先显示）
+                setTimeout(() => {
+                    const imgWindow = window.open('');
+                    if (imgWindow) {
+                        imgWindow.document.write(`
+                            <html>
+                                <head><title>长按保存图片 · 芬芳时</title></head>
+                                <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
+                                    <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
+                                    <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
+                                </body>
+                            </html>
+                        `);
+                    } else {
+                        alert('无法自动打开新窗口，请检查浏览器设置');
+                    }
+                }, 100);
+            }).catch(err => {
+                console.error(err);
+                alert('生成失败，请重试');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
+        }
     </script>
 </body>
 </html>
