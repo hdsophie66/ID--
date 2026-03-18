@@ -285,46 +285,30 @@
             input.click();
         }
 
-       function saveCard() {
+      function saveCard() {
     const card = document.getElementById('captureCard');
-    const btn = event.target;
     
-    // 保存原始状态
-    const originalText = btn.innerText;
-    const originalOpacity = btn.style.opacity;
-
-    // 设置加载状态
-    btn.innerText = '生成中...';
-    btn.style.opacity = '0.8';
-    btn.disabled = true;
-
     html2canvas(card, {
         scale: 2,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false // 关闭日志减少干扰
+        backgroundColor: '#ffffff'
     }).then(canvas => {
-        // 创建下载链接
-        const link = document.createElement('a');
-        link.download = `芬芳时·尝药日志_${new Date().toISOString().slice(0,10)}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-
-        // ⭐ 无论是否成功下载，都恢复按钮
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.style.opacity = originalOpacity || '1';
-            btn.disabled = false;
-        }, 300);
-
+        const imgWindow = window.open('');
+        if (imgWindow) {
+            imgWindow.document.write(`
+                <html>
+                    <head><title>长按保存图片 · 芬芳时</title></head>
+                    <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
+                        <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
+                        <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
+                    </body>
+                </html>
+            `);
+        } else {
+            alert('无法自动打开新窗口，请检查浏览器设置');
+        }
     }).catch(err => {
-        console.error('生成失败:', err);
-        alert('❌ 生成失败，请重试。\n\n建议：\n1. 清空部分图片再试\n2. 使用 Chrome/Safari 浏览器');
-        
-        // 出错也要恢复按钮
-        btn.innerText = originalText;
-        btn.style.opacity = originalOpacity || '1';
-        btn.disabled = false;
+        console.error(err);
+        alert('生成失败，请重试');
     });
 }
     </script>
