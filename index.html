@@ -15,8 +15,9 @@
             background: #f5f3f0;
             font-family: system-ui, "PingFang SC", sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;  /* 改为纵向排列 */
             align-items: center;
+            justify-content: flex-start;
             min-height: 100vh;
             padding: 20px;
         }
@@ -28,6 +29,7 @@
             padding: 40px 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 1px solid #e0d9cc;
+            margin-bottom: 20px;  /* 与按钮拉开距离 */
         }
         .header {
             display: flex;
@@ -69,6 +71,7 @@
         }
         .row {
             margin-bottom: 18px;
+            clear: both;  /* 防止浮动影响 */
         }
         .label {
             font-size: 0.9em;
@@ -162,15 +165,17 @@
             color: white;
             border: none;
             width: 100%;
+            max-width: 600px;  /* 和卡片一样宽 */
             padding: 18px;
             font-size: 1.2em;
             border-radius: 40px;
             font-weight: bold;
             letter-spacing: 2px;
-            margin-top: 20px;
+            margin: 0 auto;  /* 居中 */
             box-shadow: 0 6px 0 #d68c72;
             transition: 0.1s ease;
             cursor: pointer;
+            display: block;  /* 确保块级元素 */
         }
         .btn:active {
             transform: translateY(4px);
@@ -181,11 +186,13 @@
             color: #aaa;
             font-size: 0.8em;
             margin-top: 20px;
+            max-width: 600px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <!-- 卡片区域（不含按钮） -->
+    <!-- 卡片区域 -->
     <div class="card" id="captureCard">
         <div class="header">
             <div class="logo">
@@ -245,12 +252,11 @@
         </div>
     </div>  <!-- 卡片结束 -->
 
-    <!-- 按钮和 footer 在卡片外面，不会被截图 -->
+    <!-- 按钮和 footer 在卡片外面，单独一行，不会被截图 -->
     <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
     <div class="footer">每天一张 · 存进相册 · 就是你的药证笔记</div>
 
     <script>
-        // 显示今天日期
         document.getElementById('todayDate').innerText = new Date().toISOString().slice(0,10).replace(/-/g,'.');
 
         function toggleLifeSection() {
@@ -285,7 +291,6 @@
             input.click();
         }
 
-        // 保存卡片：按钮文字全程不变
         function saveCard() {
             const card = document.getElementById('captureCard');
             
