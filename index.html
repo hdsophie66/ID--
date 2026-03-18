@@ -15,7 +15,7 @@
             background: #f5f3f0;
             font-family: system-ui, "PingFang SC", sans-serif;
             display: flex;
-            flex-direction: column;  /* 改为纵向排列 */
+            flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
@@ -29,7 +29,7 @@
             padding: 40px 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 1px solid #e0d9cc;
-            margin-bottom: 20px;  /* 与按钮拉开距离 */
+            margin-bottom: 20px;
         }
         .header {
             display: flex;
@@ -71,7 +71,7 @@
         }
         .row {
             margin-bottom: 18px;
-            clear: both;  /* 防止浮动影响 */
+            clear: both;
         }
         .label {
             font-size: 0.9em;
@@ -129,6 +129,15 @@
         .toggle-btn:hover {
             background: #f0ebe4;
         }
+        /* 疗愈空间文字（居右，斜体，灰色） */
+        .healing-space {
+            text-align: right;
+            color: #aaa;
+            font-style: italic;
+            font-size: 0.9em;
+            margin: 10px 0 15px;
+            letter-spacing: 1px;
+        }
         .section-life {
             background: #fffef9;
             border-radius: 20px;
@@ -165,17 +174,17 @@
             color: white;
             border: none;
             width: 100%;
-            max-width: 600px;  /* 和卡片一样宽 */
+            max-width: 600px;
             padding: 18px;
             font-size: 1.2em;
             border-radius: 40px;
             font-weight: bold;
             letter-spacing: 2px;
-            margin: 0 auto;  /* 居中 */
+            margin: 0 auto;
             box-shadow: 0 6px 0 #d68c72;
             transition: 0.1s ease;
             cursor: pointer;
-            display: block;  /* 确保块级元素 */
+            display: block;
         }
         .btn:active {
             transform: translateY(4px);
@@ -185,7 +194,16 @@
             text-align: center;
             color: #aaa;
             font-size: 0.8em;
-            margin-top: 20px;
+            margin: 15px 0 5px;
+            max-width: 600px;
+            width: 100%;
+        }
+        /* 底部疗愈空间文字（居中） */
+        .footer-healing {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.9em;
+            margin-top: 10px;
             max-width: 600px;
             width: 100%;
         }
@@ -227,6 +245,9 @@
             <div class="row"><span class="label">📅 之前状态</span><div class="input" contenteditable="true" placeholder="服药前的状态"></div></div>
         </div>
 
+        <!-- 插入疗愈空间文字（居右） -->
+        <div class="healing-space">2026 · 芬芳时 · 疗愈空间</div>
+
         <!-- 折叠按钮 -->
         <button class="toggle-btn" onclick="toggleLifeSection()">📋 + 展开生活觉察（可填）</button>
 
@@ -252,9 +273,12 @@
         </div>
     </div>  <!-- 卡片结束 -->
 
-    <!-- 按钮和 footer 在卡片外面，单独一行，不会被截图 -->
+    <!-- 按钮 -->
     <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
+
+    <!-- 底部信息 -->
     <div class="footer">每天一张 · 存进相册 · 就是你的药证笔记</div>
+    <div class="footer-healing">2026 · 芬芳时 · 疗愈空间</div>
 
     <script>
         document.getElementById('todayDate').innerText = new Date().toISOString().slice(0,10).replace(/-/g,'.');
