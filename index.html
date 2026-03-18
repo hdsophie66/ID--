@@ -241,11 +241,11 @@
             <div class="life-row"><div class="life-label">💬 用一句话形容自己，我最不可复制的是什么</div><div class="life-input" contenteditable="true" placeholder="你会怎么描述现在的你，和你最独特的部分"></div></div>
             <div class="life-row"><div class="life-label">🌄 有能力时想做什么</div><div class="life-input" contenteditable="true" placeholder="如果有更多能量，你想做什么"></div></div>
         </div>
-
-        <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
+    
         <div class="footer">每天一张 · 存进相册 · 就是你的药证笔记</div>
     </div>
-
+<button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
+   
     <script>
         // 显示今天日期
         document.getElementById('todayDate').innerText = new Date().toISOString().slice(0,10).replace(/-/g,'.');
