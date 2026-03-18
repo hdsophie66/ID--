@@ -28,9 +28,6 @@
             padding: 40px 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 1px solid #e0d9cc;
-            /* 确保内部元素垂直排列 */
-            display: flex;
-            flex-direction: column;
         }
         .header {
             display: flex;
@@ -55,6 +52,13 @@
             color: #888;
             font-size: 0.9em;
             font-family: monospace;
+        }
+        .title {
+            text-align: center;
+            font-size: 1.5em;
+            color: #2c3e2f;
+            margin-bottom: 25px;
+            font-weight: 400;
         }
         .section-core {
             background: #faf8f5;
@@ -106,7 +110,6 @@
             max-height: 150px;
             margin-top: 10px;
             border-radius: 8px;
-            display: block; /* 防止图片产生额外间隙 */
         }
         .toggle-btn {
             background: none;
@@ -154,7 +157,6 @@
             color: #aaa;
             font-style: italic;
         }
-        /* 按钮样式 */
         .btn {
             background: #ffab91;
             color: white;
@@ -165,11 +167,10 @@
             border-radius: 40px;
             font-weight: bold;
             letter-spacing: 2px;
-            margin: 30px 0 20px; /* 上下间距 */
+            margin-top: 20px;
             box-shadow: 0 6px 0 #d68c72;
             transition: 0.1s ease;
             cursor: pointer;
-            align-self: center; /* 确保居中 */
         }
         .btn:active {
             transform: translateY(4px);
@@ -179,12 +180,12 @@
             text-align: center;
             color: #aaa;
             font-size: 0.8em;
-            margin-bottom: 10px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- 卡片容器开始 -->
+    <!-- 卡片区域（不含按钮） -->
     <div class="card" id="captureCard">
         <div class="header">
             <div class="logo">
@@ -242,13 +243,11 @@
             <div class="life-row"><div class="life-label">💬 用一句话形容自己，我最不可复制的是什么</div><div class="life-input" contenteditable="true" placeholder="你会怎么描述现在的你，和你最独特的部分"></div></div>
             <div class="life-row"><div class="life-label">🌄 有能力时想做什么</div><div class="life-input" contenteditable="true" placeholder="如果有更多能量，你想做什么"></div></div>
         </div>
-    
-        <div class="footer">每天一张 · 存进相册 · 就是你的药证笔记</div>
-        
-        <!-- ✅ 修复点：按钮已移入 card 容器内部，位于 footer 之后 -->
-        <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
-    </div>
-    <!-- 卡片容器结束 -->
+    </div>  <!-- 卡片结束 -->
+
+    <!-- 按钮和 footer 在卡片外面，不会被截图 -->
+    <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
+    <div class="footer">每天一张 · 存进相册 · 就是你的药证笔记</div>
 
     <script>
         // 显示今天日期
@@ -265,6 +264,7 @@
                 btn.innerText = '📋 - 收起生活觉察';
             }
         }
+
         function insertImage(btn) {
             const input = document.createElement('input');
             input.type = 'file';
@@ -285,32 +285,33 @@
             input.click();
         }
 
-      function saveCard() {
-    const card = document.getElementById('captureCard');
-    
-    html2canvas(card, {
-        scale: 2,
-        backgroundColor: '#ffffff'
-    }).then(canvas => {
-        const imgWindow = window.open('');
-        if (imgWindow) {
-            imgWindow.document.write(`
-                <html>
-                    <head><title>长按保存图片 · 芬芳时</title></head>
-                    <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
-                        <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
-                        <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
-                    </body>
-                </html>
-            `);
-        } else {
-            alert('无法自动打开新窗口，请检查浏览器设置');
+        // 保存卡片：按钮文字全程不变
+        function saveCard() {
+            const card = document.getElementById('captureCard');
+            
+            html2canvas(card, {
+                scale: 2,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const imgWindow = window.open('');
+                if (imgWindow) {
+                    imgWindow.document.write(`
+                        <html>
+                            <head><title>长按保存图片 · 芬芳时</title></head>
+                            <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
+                                <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
+                                <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
+                            </body>
+                        </html>
+                    `);
+                } else {
+                    alert('无法自动打开新窗口，请检查浏览器设置');
+                }
+            }).catch(err => {
+                console.error(err);
+                alert('生成失败，请重试');
+            });
         }
-    }).catch(err => {
-        console.error(err);
-        alert('生成失败，请重试');
-    });
-}
     </script>
 </body>
 </html>
