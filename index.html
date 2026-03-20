@@ -130,13 +130,13 @@
             background: #f0ebe4;
         }
       .healing-space {
-    text-align: right;
-    color: #666666;
-    font-style: italic;
-    font-size: 0.6em;
-    margin: 10px 0 15px;
-    letter-spacing: 1px;
-}
+        text-align: right;
+        color: #666666;
+        font-style: italic;
+        font-size: 0.6em;
+        margin: 10px 0 15px;
+        letter-spacing: 1px;
+    }
         
         .section-life {
             background: #fffef9;
@@ -207,6 +207,11 @@
             max-width: 600px;
             width: 100%;
         }
+
+        /* 新增：用于截图时隐藏元素的类 */
+        .hide-on-capture {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -226,13 +231,13 @@
             <div class="row"><span class="label">⚖️ 四气五味 / 升降浮沉</span><div class="input" contenteditable="true" placeholder="温、辛、甘……"></div></div>
             <div class="row">
               <div class="row">
-    <span class="label">🌀 药性 / 三焦图</span>
-    <div class="input" contenteditable="true" placeholder="运转中焦、流通气血、清利三焦"></div>
-    <div class="image-upload-area">
-        <button class="upload-btn" onclick="insertImage(this)">📎 插入图片</button>
-        <div class="image-preview"></div>
-    </div>
-</div>
+                <span class="label">🌀 药性 / 三焦图</span>
+                <div class="input" contenteditable="true" placeholder="运转中焦、流通气血、清利三焦"></div>
+                <div class="image-upload-area">
+                    <button class="upload-btn" onclick="insertImage(this)">📎 插入图片</button>
+                    <div class="image-preview"></div>
+                </div>
+            </div>
             <div class="row"><span class="label">📌 用药反应</span><div class="input" contenteditable="true" placeholder="服药后身体的感觉"></div></div>
             <div class="row"><span class="label">🕒 当下状态</span><div class="input" contenteditable="true" placeholder="今天整体的感受"></div></div>
             <div class="row">
@@ -274,12 +279,12 @@
         </div>
     </div>  <!-- 卡片结束 -->
 
-    <!-- 按钮 -->
-    <button class="btn" onclick="saveCard()">📸 保存这张卡片</button>
+    <!-- 按钮 (添加类名以便控制) -->
+    <button class="btn hide-target" onclick="saveCard()">📸 保存这张卡片</button>
 
-    <!-- 底部信息 -->
-    <div class="footer">每天一张 · 存进相册 · 就是你的药证笔记</div>
-    <div class="footer-healing">©2026 · 『芬芳时』 · 疗愈空间</div>
+    <!-- 底部信息 (添加类名以便控制) -->
+    <div class="footer hide-target">每天一张 · 存进相册 · 就是你的药证笔记</div>
+    <div class="footer-healing hide-target">©2026 · 『芬芳时』 · 疗愈空间</div>
 
     <script>
         document.getElementById('todayDate').innerText = new Date().toISOString().slice(0,10).replace(/-/g,'.');
@@ -319,28 +324,41 @@
         function saveCard() {
             const card = document.getElementById('captureCard');
             
-            html2canvas(card, {
-                scale: 2,
-                backgroundColor: '#ffffff'
-            }).then(canvas => {
-                const imgWindow = window.open('');
-                if (imgWindow) {
-                    imgWindow.document.write(`
-                        <html>
-                            <head><title>长按保存图片 · 芬芳时</title></head>
-                            <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
-                                <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
-                                <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
-                            </body>
-                        </html>
-                    `);
-                } else {
-                    alert('无法自动打开新窗口，请检查浏览器设置');
-                }
-            }).catch(err => {
-                console.error(err);
-                alert('生成失败，请重试');
-            });
+            // 1. 获取所有需要隐藏的元素（按钮和底部文字）
+            const elementsToHide = document.querySelectorAll('.hide-target');
+            
+            // 2. 临时隐藏它们
+            elementsToHide.forEach(el => el.classList.add('hide-on-capture'));
+
+            // 稍微延迟一点点确保样式应用完成（虽然通常不需要，但为了保险）
+            setTimeout(() => {
+                html2canvas(card, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    useCORS: true // 允许加载跨域图片（如果有的话）
+                }).then(canvas => {
+                    const imgWindow = window.open('');
+                    if (imgWindow) {
+                        imgWindow.document.write(`
+                            <html>
+                                <head><title>长按保存图片 · 芬芳时</title></head>
+                                <body style="margin:0; display:flex; justify-content:center; align-items:center; background:#f0f0f0;">
+                                    <img src="${canvas.toDataURL('image/png')}" style="max-width:100%; max-height:100vh; object-fit:contain;" />
+                                    <p style="position:fixed; bottom:20px; left:0; right:0; text-align:center; color:#666;">👆 长按图片保存到相册</p>
+                                </body>
+                            </html>
+                        `);
+                    } else {
+                        alert('无法自动打开新窗口，请检查浏览器设置（是否拦截了弹窗）');
+                    }
+                }).catch(err => {
+                    console.error(err);
+                    alert('生成失败，请重试');
+                }).finally(() => {
+                    // 3. 【关键步骤】无论成功失败，都要把元素重新显示出来
+                    elementsToHide.forEach(el => el.classList.remove('hide-on-capture'));
+                });
+            }, 100);
         }
     </script>
 </body>
