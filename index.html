@@ -6,231 +6,142 @@
     <title>🌿 芬芳时 · 尝药日志</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #f5f3f0;
             font-family: system-ui, "PingFang SC", sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; padding: 20px;
         }
         .card {
-            max-width: 600px;
-            width: 100%;
-            background: white;
-            border-radius: 32px;
-            padding: 40px 30px;
+            max-width: 600px; width: 100%; background: white;
+            border-radius: 32px; padding: 40px 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid #e0d9cc;
-            margin-bottom: 20px;
+            border: 1px solid #e0d9cc; margin-bottom: 20px;
         }
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #556b2f;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #556b2f; padding-bottom: 15px; margin-bottom: 25px;
         }
-        .logo {
-            font-weight: 600;
-            color: #556b2f;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .logo span {
-            font-size: 1.4em;
-        }
-        .date {
-            color: #888;
-            font-size: 0.9em;
-            font-family: monospace;
-        }
-        .title {
-            text-align: center;
-            font-size: 1.5em;
-            color: #2c3e2f;
-            margin-bottom: 25px;
-            font-weight: 400;
-        }
+        .logo { font-weight: 600; color: #556b2f; font-size: 1.2em; display: flex; align-items: center; gap: 6px; }
+        .logo span { font-size: 1.4em; }
+        .date { color: #888; font-size: 0.9em; font-family: monospace; }
+        .title { text-align: center; font-size: 1.5em; color: #2c3e2f; margin-bottom: 25px; font-weight: 400; }
         .section-core {
-            background: #faf8f5;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border: 1px solid #e2d9cc;
+            background: #faf8f5; border-radius: 20px; padding: 20px;
+            margin-bottom: 25px; border: 1px solid #e2d9cc;
         }
-        .row {
-            margin-bottom: 18px;
-            clear: both;
-        }
+        .row { margin-bottom: 18px; clear: both; }
         .label {
-            font-size: 0.9em;
-            color: #556b2f;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-            display: block;
+            font-size: 0.9em; color: #556b2f; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 5px; display: block;
         }
         .input {
-            border-bottom: 1px dashed #bbb;
-            min-height: 1.8em;
-            padding: 5px 0;
-            color: #333;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+            border-bottom: 1px dashed #bbb; min-height: 1.8em;
+            padding: 5px 0; color: #333; line-height: 1.5;
+            white-space: pre-wrap; word-wrap: break-word;
         }
         .input[contenteditable="true"]:empty:before {
-            content: attr(placeholder);
-            color: #aaa;
-            font-style: italic;
+            content: attr(placeholder); color: #aaa; font-style: italic;
         }
-        .image-upload-area {
-            margin-top: 10px;
-        }
+        .image-upload-area { margin-top: 10px; }
         .upload-btn {
-            background: #e0d9cc;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            color: #333;
-            cursor: pointer;
+            background: #e0d9cc; border: none; padding: 6px 12px;
+            border-radius: 20px; font-size: 0.9em; color: #333; cursor: pointer;
         }
-        .preview-image {
-            max-width: 100%;
-            max-height: 150px;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
+        .preview-image { max-width: 100%; max-height: 150px; margin-top: 10px; border-radius: 8px; }
         .toggle-btn {
-            background: none;
-            border: 1px solid #ccc;
-            color: #556b2f;
-            padding: 10px;
-            width: 100%;
-            border-radius: 30px;
-            font-size: 1em;
-            cursor: pointer;
-            margin: 15px 0 10px;
-            transition: 0.2s;
+            background: none; border: 1px solid #ccc; color: #556b2f;
+            padding: 10px; width: 100%; border-radius: 30px;
+            font-size: 1em; cursor: pointer; margin: 15px 0 10px; transition: 0.2s;
         }
-        .toggle-btn:hover {
-            background: #f0ebe4;
+        .toggle-btn:hover { background: #f0ebe4; }
+        .healing-space {
+            text-align: right; color: #666666; font-style: italic;
+            font-size: 0.6em; margin: 10px 0 15px; letter-spacing: 1px;
         }
-      .healing-space {
-        text-align: right;
-        color: #666666;
-        font-style: italic;
-        font-size: 0.6em;
-        margin: 10px 0 15px;
-        letter-spacing: 1px;
-    }
-        
         .section-life {
-            background: #fffef9;
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px dashed #ce93d8;
-            display: none;
-            margin-top: 15px;
+            background: #fffef9; border-radius: 20px; padding: 20px;
+            border: 1px dashed #ce93d8; display: none; margin-top: 15px;
         }
-        .section-life.show {
-            display: block;
-        }
-        .life-row {
-            margin-bottom: 15px;
-            font-size: 0.95em;
-        }
-        .life-label {
-            color: #7b5e4b;
-            font-weight: 500;
-            margin-bottom: 3px;
-        }
+        .section-life.show { display: block; }
+        .life-row { margin-bottom: 15px; font-size: 0.95em; }
+        .life-label { color: #7b5e4b; font-weight: 500; margin-bottom: 3px; }
         .life-input {
-            border-bottom: 1px dotted #ccc;
-            min-height: 1.6em;
-            padding: 4px 0;
-            color: #333;
+            border-bottom: 1px dotted #ccc; min-height: 1.6em;
+            padding: 4px 0; color: #333;
         }
         .life-input[contenteditable="true"]:empty:before {
-            content: attr(placeholder);
-            color: #aaa;
-            font-style: italic;
+            content: attr(placeholder); color: #aaa; font-style: italic;
         }
         .btn {
-            background: #ffab91;
-            color: white;
-            border: none;
-            width: 100%;
-            max-width: 600px;
-            padding: 18px;
-            font-size: 1.2em;
-            border-radius: 40px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin: 0 auto;
-            box-shadow: 0 6px 0 #d68c72;
-            transition: 0.1s ease;
-            cursor: pointer;
-            display: block;
+            background: #ffab91; color: white; border: none;
+            width: 100%; max-width: 600px; padding: 18px; font-size: 1.2em;
+            border-radius: 40px; font-weight: bold; letter-spacing: 2px;
+            margin: 0 auto; box-shadow: 0 6px 0 #d68c72;
+            transition: 0.1s ease; cursor: pointer; display: block;
         }
-        .btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #d68c72;
-        }
-        .footer {
-            text-align: center;
-            color: #aaa;
-            font-size: 0.8em;
-            margin: 15px 0 5px;
-            max-width: 600px;
-            width: 100%;
-        }
-        /* 底部疗愈空间文字（居中） */
-        .footer-healing {
-            text-align: center;
-            color: #666666;
-            font-size: 0.9em;
-            margin-top: 10px;
-            max-width: 600px;
-            width: 100%;
-        }
+        .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #d68c72; }
+        .footer { text-align: center; color: #aaa; font-size: 0.8em; margin: 15px 0 5px; max-width: 600px; width: 100%; }
+        .footer-healing { text-align: center; color: #666666; font-size: 0.9em; margin-top: 10px; max-width: 600px; width: 100%; }
+        .hide-on-capture { display: none !important; }
 
-        /* 新增：用于截图时隐藏元素的类 */
-        .hide-on-capture {
-            display: none !important;
+        /* 新增：汤药身体反应区块 */
+        .reaction-block {
+            background: #f9f6f0;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 10px;
+        }
+        .reaction-question {
+            font-size: 0.9em;
+            color: #5e6b3c;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .reaction-question::before {
+            content: "☑";
+            color: #556b2f;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+        .reaction-answer {
+            border-bottom: 1px dashed #cbbaa8;
+            min-height: 1.6em;
+            padding: 4px 0 4px 26px;
+            color: #444;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .reaction-answer:empty:before {
+            content: attr(placeholder);
+            color: #bbb;
+            font-style: italic;
+        }
+        .reaction-item {
+            margin-bottom: 16px;
+        }
+        .reaction-item:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
 <body>
-    <!-- 卡片区域 -->
     <div class="card" id="captureCard">
         <div class="header">
-            <div class="logo">
-                <span>🌿</span> 芬芳时 · 尝药日志
-            </div>
+            <div class="logo"><span>🌿</span> 芬芳时 · 尝药日志</div>
             <div class="date" id="todayDate"></div>
         </div>
 
-        <!-- 第一层：尝药核心 -->
         <div class="section-core">
             <div class="row"><span class="label">👤 用户名</span><div class="input" contenteditable="true" placeholder="你的名字"></div></div>
             <div class="row"><span class="label">🌱 药名 / 方剂 / 穴位名</span><div class="input" contenteditable="true" placeholder="如：白芍、桂枝汤、合谷穴"></div></div>
             <div class="row"><span class="label">⚖️ 四气五味 / 升降浮沉 / 开阖</span><div class="input" contenteditable="true" placeholder="温、辛、甘……"></div></div>
             <div class="row">
-              <div class="row">
                 <span class="label">🌀 药性 / 三焦图 / 穴位图</span>
                 <div class="input" contenteditable="true" placeholder="运转中焦、流通气血、清利三焦"></div>
                 <div class="image-upload-area">
@@ -238,7 +149,30 @@
                     <div class="image-preview"></div>
                 </div>
             </div>
-            <div class="row"><span class="label">📌 用药/身体反应</span><div class="input" contenteditable="true" placeholder="服药后身体的感觉"></div></div>
+
+            <!-- 新增：汤药身体反应区块 -->
+            <div class="row">
+                <span class="label">💊 用药 / 身体反应</span>
+                <div class="reaction-block">
+                    <div class="reaction-item">
+                        <div class="reaction-question">汤药的力量进到身体的哪里？</div>
+                        <div class="reaction-answer" contenteditable="true" placeholder="如：中焦"></div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-question">哪些区域开始有反应（上下、表里）？反应大致方向？</div>
+                        <div class="reaction-answer" contenteditable="true" placeholder="如：整个胃一下热起来，包括胸腔也觉得暖了。脑门后背出汗，手心发热。"></div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-question">增加能量还是带走能量？膨胀/扩张？还是收束/凝聚？</div>
+                        <div class="reaction-answer" contenteditable="true" placeholder="如：增加能量，膨胀"></div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-question">其他感受……</div>
+                        <div class="reaction-answer" contenteditable="true" placeholder="如：能量很足"></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row"><span class="label">🕒 当下状态</span><div class="input" contenteditable="true" placeholder="今天整体的感受"></div></div>
             <div class="row">
                 <span class="label">👅 舌苔情况</span>
@@ -247,17 +181,14 @@
                     <button class="upload-btn" onclick="insertImage(this)">📎 插入舌苔照片</button>
                     <div class="image-preview"></div>
                 </div>
-            </div>       
+            </div>
             <div class="row"><span class="label">📅 之前状态</span><div class="input" contenteditable="true" placeholder="服药前的状态"></div></div>
         </div>
 
-        <!-- 插入疗愈空间文字（居右） -->
         <div class="healing-space">©2026 ·『芬芳时』· 疗愈空间</div>
 
-        <!-- 折叠按钮 -->
         <button class="toggle-btn" onclick="toggleLifeSection()">📋 + 展开生活觉察（可填）</button>
 
-        <!-- 第二层：生活觉察 -->
         <div class="section-life" id="lifeSection">
             <div class="life-row"><div class="life-label">🍚 日常饮食</div><div class="life-input" contenteditable="true" placeholder="今天吃了什么"></div></div>
             <div class="life-row"><div class="life-label">🚽 二便情况</div><div class="life-input" contenteditable="true" placeholder="大小便"></div></div>
@@ -277,12 +208,9 @@
             <div class="life-row"><div class="life-label">💬 用一句话形容自己，『我最不可复制的是什么』</div><div class="life-input" contenteditable="true" placeholder="你会怎么描述现在的你，和你最独特的部分"></div></div>
             <div class="life-row"><div class="life-label">🌄 有能力时想做什么</div><div class="life-input" contenteditable="true" placeholder="如果有更多能量，你想做什么"></div></div>
         </div>
-    </div>  <!-- 卡片结束 -->
+    </div>
 
-    <!-- 按钮 (添加类名以便控制) -->
     <button class="btn hide-target" onclick="saveCard()">📸 保存这张卡片</button>
-
-    <!-- 底部信息 (添加类名以便控制) -->
     <div class="footer hide-target">每天一张 · 存进相册 · 就是你的药证笔记</div>
     <div class="footer-healing hide-target">©2026 · 『芬芳时』 · 疗愈空间</div>
 
@@ -323,19 +251,14 @@
 
         function saveCard() {
             const card = document.getElementById('captureCard');
-            
-            // 1. 获取所有需要隐藏的元素（按钮和底部文字）
             const elementsToHide = document.querySelectorAll('.hide-target');
-            
-            // 2. 临时隐藏它们
             elementsToHide.forEach(el => el.classList.add('hide-on-capture'));
 
-            // 稍微延迟一点点确保样式应用完成（虽然通常不需要，但为了保险）
             setTimeout(() => {
                 html2canvas(card, {
                     scale: 2,
                     backgroundColor: '#ffffff',
-                    useCORS: true // 允许加载跨域图片（如果有的话）
+                    useCORS: true
                 }).then(canvas => {
                     const imgWindow = window.open('');
                     if (imgWindow) {
@@ -349,13 +272,12 @@
                             </html>
                         `);
                     } else {
-                        alert('无法自动打开新窗口，请检查浏览器设置（是否拦截了弹窗）');
+                        alert('无法自动打开新窗口，请检查浏览器设置');
                     }
                 }).catch(err => {
                     console.error(err);
                     alert('生成失败，请重试');
                 }).finally(() => {
-                    // 3. 【关键步骤】无论成功失败，都要把元素重新显示出来
                     elementsToHide.forEach(el => el.classList.remove('hide-on-capture'));
                 });
             }, 100);
