@@ -87,7 +87,7 @@
         .footer-healing { text-align: center; color: #666666; font-size: 0.9em; margin-top: 10px; max-width: 600px; width: 100%; }
         .hide-on-capture { display: none !important; }
 
-        /* 新增：汤药身体反应区块 */
+        /* 新增：汤药身体反应区块（去掉对勾和复选框） */
         .reaction-block {
             background: #f9f6f0;
             border-radius: 16px;
@@ -99,20 +99,11 @@
             color: #5e6b3c;
             font-weight: 600;
             margin-bottom: 6px;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
-        .reaction-question::before {
-            content: "☑";
-            color: #556b2f;
-            font-size: 1.1em;
-            flex-shrink: 0;
         }
         .reaction-answer {
             border-bottom: 1px dashed #cbbaa8;
             min-height: 1.6em;
-            padding: 4px 0 4px 26px;
+            padding: 4px 0;
             color: #444;
             font-size: 0.95em;
             line-height: 1.5;
@@ -150,7 +141,7 @@
                 </div>
             </div>
 
-            <!-- 新增：汤药身体反应区块 -->
+            <!-- 新增：汤药身体反应区块（无对勾、无复选框） -->
             <div class="row">
                 <span class="label">💊 用药 / 身体反应</span>
                 <div class="reaction-block">
